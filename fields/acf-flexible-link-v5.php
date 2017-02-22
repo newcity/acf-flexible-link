@@ -144,12 +144,24 @@ class acf_field_flexible_link extends acf_field {
 			),
 		), true);
 
+		acf_render_field_setting( $field, array(
+			'label'	=> __('Filter Internal Links by Post Type','acf'),
+			'instructions' => '',
+			'type' => 'select',
+			'name' => 'post_type',
+			'choices' => acf_get_pretty_post_types(),
+			'multiple' => 1,
+			'ui' => 1,
+			'allow_null' => 1,
+			'placeholder' => __("All post types",'acf'),
+		));
+
 	}
 
 function html_title( $field ) {
 	if ( $field['show_title'] ) {
-		$label = '<label for="' . esc_attr($field["id"]) . '">Title</label>';
-		$input = '<input type="text" name="' . esc_attr($field["name"]) . '[title]' . '" id="' . esc_attr($field["id"]) . '[title]" value="' . esc_attr($field["value"]["title"]) . '" />';
+		$label = '<div class="acf-field acf-field-text"><div class="acf-label"><label for="' . esc_attr($field["id"]) . '">Title</label></div>';
+		$input = '<div class="acf-input-wrap"><input type="text" name="' . esc_attr($field["name"]) . '[title]' . '" id="' . esc_attr($field["id"]) . '[title]" value="' . esc_attr($field["value"]["title"]) . '" /></div></div>';
 		return $label . $input;
 	}
 
@@ -164,7 +176,7 @@ function html_link_choices( $field ) {
 		'email' => 'E-Mail Address'
 	);
 
-	$options = '<ul class="acf-radio-list">';
+	$options = '<div class="acf-field acf-field-radio"><ul class="acf-radio-list acf-vl">';
 	foreach( $field['allowed_link_types'] as $value) {
 		$label_class = '';
 		$checked = '';
@@ -181,8 +193,74 @@ function html_link_choices( $field ) {
 
 		$options .= '<li><label class="' . $label_class . '"><input type="radio" name="' . esc_attr($field["name"]) . '[link_type]" id="' . esc_attr($field["id"]) . '[link_type]" value="' . $value . '" ' . $checked . '> ' . $labels[$value] . '</label></li>';
 	}
-	$options .= '</ul>';
+	$options .= '</ul></div>';
 	return $options;
+}
+
+function html_link_fields($field) {
+	$field_name = esc_attr( $field['name'] );
+	$field_raw_key = str_replace("field_", "", $field["key"]);
+	$types = array("post", "page");
+	?>
+
+	<div class="acf-field acf-field-url">
+	<div class="acf-label">
+		<label>External Link</label>
+	</div>
+	<?php
+
+		do_action('acf/render_field/type=url', array(
+			'type' => 'url',
+			'name' => $field_name . '[external_url]',
+			'value' => $field['value']['external_url'],
+			'id' => $field['id'] .'[external_url]',
+			'class' => '',
+			'placeholder' => ''
+		));
+	?>
+</div>
+	<div class="acf-label">
+		<label>Internal Link</label>
+	</div>
+	<?php
+		// str replace to get raw key (there seems to be no other way?)
+		$field_raw_key = str_replace('field_', '', $field['key']);
+	?>
+	<div class="acf-field acf-field-<?php echo $field_raw_key; ?> acf-field-post-object" data-name="<?php echo $field['_name']; ?>[post_id]" data-type="post_object" data-key="<?php echo $field['key']; ?>">
+		<div class="acf-input">
+		<?php
+			$types = array('post', 'page', 'attachment');
+
+			@do_action('acf/render_field/type=post_object', array(
+				'name' => $field_name . '[post_id]',
+				'value' => $field['value']['post_id'],
+				'post_type' => $types,
+				'allow_null' => 1
+				//'_name' => 'acf[' . $field['_name'] . '][post_id]',
+				//'key' => 'acf[' . $field['key'] . '][post_id]'
+			));
+		?>
+		</div>
+	</div>
+
+	<div class="acf-label">
+		<label>Email Address</label>
+	</div>
+	<?php
+
+		do_action('acf/render_field/type=email', array(
+			'type' => 'email',
+			'name' => $field_name . '[email]',
+			'value' => $field['value']['email'],
+			'label' => __("Email",'acf'),
+			'id' => $field_name.'[email]',
+			'prepend' => $field['prepend'],
+			'append' => $field['append'],
+			'class' => '',
+			'placeholder' => ''
+		));
+
+	return $field;
 }
 
 
@@ -205,28 +283,24 @@ function html_link_choices( $field ) {
 
 		$field['value']['title'] = isset($field['value']['title']) ? $field['value']['title'] : $field['default_title'];
 		$field['value']['link_type'] = isset($field['value']['link_type']) ? $field['value']['link_type'] : $field['default_link_type'];
+		$field['value']['external_url'] = isset($field['value']['external_url']) ? $field['value']['external_url'] : null;
+		$field['value']['email'] = isset($field['value']['email']) ? $field['value']['email'] : null;
+		$field['value']['post_id'] = isset($field['value']['post_id']) ? $field['value']['post_id'] : null;
+		$field['prepend'] = isset($field['prepend']) ? $field['prepend'] : '';
+		$field['append'] = isset($field['append']) ? $field['append'] : '';
 
 		/*
 		*  Review the data of $field.
 		*  This will show what data is available
 		*/
 
-		echo '<pre>';
-			print_r( $field );
-		echo '</pre>';
+		// echo '<pre>';
+		// 	print_r( $field );
+		// echo '</pre>';
 
-
-		/*
-		*  Create a simple text input using the 'font_size' setting.
-		*/
-
-		?>
-		<?php
-			echo $this->html_title($field);
-			echo $this->html_link_choices($field);
-		?>
-		<!-- <input type="text" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo esc_attr($field['value']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" /> -->
-		<?php
+		echo $this->html_title($field);
+		echo $this->html_link_choices($field);
+		$this->html_link_fields($field);
 	}
 
 
@@ -406,15 +480,12 @@ function html_link_choices( $field ) {
 	*  @return	$value
 	*/
 
-	/*
 
-	function load_value( $value, $post_id, $field ) {
-
-		return $value;
-
-	}
-
-	*/
+	// function load_value( $value, $post_id, $field ) {
+	// 	// $value['url'] = $value['external_url'];
+	// 	return $value;
+	//
+	// }
 
 
 	/*
@@ -459,7 +530,6 @@ function html_link_choices( $field ) {
 	*  @return	$value (mixed) the modified value
 	*/
 
-	/*
 
 	function format_value( $value, $post_id, $field ) {
 
@@ -470,21 +540,34 @@ function html_link_choices( $field ) {
 
 		}
 
+		$url = '';
 
-		// apply setting
-		if( $field['font_size'] > 12 ) {
+		switch ($value['link_type']) {
+			case 'url':
+				$url = $value['external_url'];
+				break;
+			case 'email':
+				$url = 'mailto:' . $value['email'];
+				break;
+			case 'post':
+				$url = get_permalink($value['post_id']);
+				break;
+		}
 
-			// format the value
-			// $value = 'something';
+		$link_object = array(
+			'text' => $value['title'],
+			'url' => $url,
+			'link_type' => $value['link_type']
+		);
 
+		if ( $field['return_type'] === 1 ) {
+			return $link_object['url'];
 		}
 
 
-		// return
-		return $value;
+		return $link_object;
 	}
 
-	*/
 
 
 	/*
