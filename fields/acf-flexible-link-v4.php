@@ -5,10 +5,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if( !class_exists('acf_field_FIELD_NAME') ) :
+if( !class_exists('acf_field_flexible_link') ) :
 
 
-class acf_field_FIELD_NAME extends acf_field {
+class acf_field_flexible_link extends acf_field {
 	
 	// vars
 	var $settings, // will hold info such as dir / path
@@ -27,8 +27,8 @@ class acf_field_FIELD_NAME extends acf_field {
 	function __construct( $settings )
 	{
 		// vars
-		$this->name = 'FIELD_NAME';
-		$this->label = __('FIELD_LABEL');
+		$this->name = 'flexible_link';
+		$this->label = __('Flexible Link');
 		$this->category = __("Basic",'acf'); // Basic, Content, Choice, etc
 		$this->defaults = array(
 			// add default here to merge into your field. 
@@ -154,13 +154,13 @@ class acf_field_FIELD_NAME extends acf_field {
 		
 		
 		// register & include JS
-		wp_register_script( 'acf-input-FIELD_NAME', "{$url}assets/js/input.js", array('acf-input'), $version );
-		wp_enqueue_script('acf-input-FIELD_NAME');
+		wp_register_script( 'acf-input-flexible_link', "{$url}assets/js/input.js", array('acf-input'), $version );
+		wp_enqueue_script('acf-input-flexible_link');
 		
 		
 		// register & include CSS
-		wp_register_style( 'acf-input-FIELD_NAME', "{$url}assets/css/input.css", array('acf-input'), $version );
-		wp_enqueue_style('acf-input-FIELD_NAME');
+		wp_register_style( 'acf-input-flexible_link', "{$url}assets/css/input.css", array('acf-input'), $version );
+		wp_enqueue_style('acf-input-flexible_link');
 		
 	}
 	
@@ -373,7 +373,7 @@ class acf_field_FIELD_NAME extends acf_field {
 
 
 // initialize
-new acf_field_FIELD_NAME( $this->settings );
+new acf_field_flexible_link( $this->settings );
 
 
 // class_exists check

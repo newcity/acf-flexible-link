@@ -1,12 +1,12 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: FIELD_LABEL
-Plugin URI: PLUGIN_URL
-Description: SHORT_DESCRIPTION
+Plugin Name: Advanced Custom Fields: Flexible Link
+Plugin URI: https://github.com/wonkeythemonkey/acf-flexible-link
+Description: Choose from a variety of link types
 Version: 1.0.0
-Author: AUTHOR_NAME
-Author URI: AUTHOR_URL
+Author: Jesse Janowiak
+Author URI: https://insidenewcity.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -16,9 +16,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if( !class_exists('acf_plugin_FIELD_NAME') ) :
+if( !class_exists('acf_plugin_flexible_link') ) :
 
-class acf_plugin_FIELD_NAME {
+class acf_plugin_flexible_link {
 	
 	/*
 	*  __construct
@@ -45,7 +45,7 @@ class acf_plugin_FIELD_NAME {
 		
 		// set text domain
 		// https://codex.wordpress.org/Function_Reference/load_plugin_textdomain
-		load_plugin_textdomain( 'acf-FIELD_NAME', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
+		load_plugin_textdomain( 'acf-flexible_link', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
 		
 		
 		// include field
@@ -75,7 +75,7 @@ class acf_plugin_FIELD_NAME {
 		
 		
 		// include
-		include_once('fields/acf-FIELD_NAME-v' . $version . '.php');
+		include_once('fields/acf-flexible_link-v' . $version . '.php');
 		
 	}
 	
@@ -83,7 +83,7 @@ class acf_plugin_FIELD_NAME {
 
 
 // initialize
-new acf_plugin_FIELD_NAME();
+new acf_plugin_flexible_link();
 
 
 // class_exists check

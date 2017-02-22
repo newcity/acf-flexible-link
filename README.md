@@ -13,28 +13,28 @@ http://www.advancedcustomfields.com/resources/tutorials/creating-a-new-field-typ
 * `/assets/images`: folder for image files
 * `/assets/js`: folder for .js files
 * `/fields`:  folder for all field class files.
-* `/fields/FIELD_NAME-v5.php`: Field class compatible with ACF version 5 
-* `/fields/FIELD_NAME-v4.php`: Field class compatible with ACF version 4
+* `/fields/flexible_link-v5.php`: Field class compatible with ACF version 5 
+* `/fields/flexible_link-v4.php`: Field class compatible with ACF version 4
 * `/lang`: folder for .pot, .po and .mo files
-* `acf-FIELD_NAME.php`: Main plugin file that includes the correct field file based on the ACF version
+* `acf-flexible_link.php`: Main plugin file that includes the correct field file based on the ACF version
 * `readme.txt`: WordPress readme file to be used by the WordPress repository
 
 ### step 1.
 
-This template uses `PLACEHOLDERS` such as `FIELD_NAME` throughout the file names and code. Use the following list of placeholders to do a 'find and replace':
+This template uses `PLACEHOLDERS` such as `flexible_link` throughout the file names and code. Use the following list of placeholders to do a 'find and replace':
 
-* `FIELD_NAME`: Single word, no spaces. Underscores allowed. eg. donate_button
-* `FIELD_LABEL`: Multiple words, can include spaces, visible when selecting a field type. eg. Donate Button
-* `PLUGIN_URL`: Url to the github or WordPress repository
-* `PLUGIN_TAGS`: Comma separated list of relevant tags
-* `SHORT_DESCRIPTION`: Brief description of the field type, no longer than 2 lines
-* `EXTENDED_DESCRIPTION`: Extended description of the field type
-* `AUTHOR_NAME`: Name of field type author
-* `AUTHOR_URL`: URL to author's website
+* `flexible_link`: Single word, no spaces. Underscores allowed. eg. donate_button
+* `Flexible Link`: Multiple words, can include spaces, visible when selecting a field type. eg. Donate Button
+* `https://github.com/wonkeythemonkey/acf-flexible-link`: Url to the github or WordPress repository
+* `link, url, button, email, post`: Comma separated list of relevant tags
+* `Choose from a variety of link types`: Brief description of the field type, no longer than 2 lines
+* `A single field object that allows user to choose from a variety of link types and returns an object with a URL and optional title.`: Extended description of the field type
+* `Jesse Janowiak`: Name of field type author
+* `https://insidenewcity.com`: URL to author's website
 
 ### step 2.
 
-Edit the `FIELD_NAME-v5.php` and `FIELD_NAME-v4.php` files (now renamed using your field name) and include your custom code in the appropriate functions. 
+Edit the `flexible_link-v5.php` and `flexible_link-v4.php` files (now renamed using your field name) and include your custom code in the appropriate functions. 
 Please note that v4 and v5 field classes have slightly different functions. For more information, please read:
 * http://www.advancedcustomfields.com/resources/tutorials/creating-a-new-field-type/
 
@@ -44,15 +44,15 @@ Edit this `README.md` file with the appropriate information and delete all conte
 
 -----------------------
 
-# ACF FIELD_LABEL Field
+# ACF Flexible Link Field
 
-SHORT_DESCRIPTION
+Choose from a variety of link types
 
 -----------------------
 
 ### Description
 
-EXTENDED_DESCRIPTION
+A single field object that allows user to choose from a variety of link types and returns an object with a URL and optional title.
 
 ### Compatibility
 
@@ -62,9 +62,9 @@ This ACF field type is compatible with:
 
 ### Installation
 
-1. Copy the `acf-FIELD_NAME` folder into your `wp-content/plugins` folder
-2. Activate the FIELD_LABEL plugin via the plugins admin page
-3. Create a new field via ACF and select the FIELD_LABEL type
+1. Copy the `acf-flexible_link` folder into your `wp-content/plugins` folder
+2. Activate the Flexible Link plugin via the plugins admin page
+3. Create a new field via ACF and select the Flexible Link type
 4. Please refer to the description for more info regarding the field type settings
 
 ### Changelog
