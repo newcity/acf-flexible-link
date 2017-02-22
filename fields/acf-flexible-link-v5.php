@@ -57,9 +57,9 @@ class acf_field_flexible_link extends acf_field {
 				'url',
 				'email',
 			),
-			'show_title' => true,
+			'show_text' => true,
 			'default_link_type' => 'post',
-			'default_title' => ''
+			'default_text' => ''
 		);
 
 
@@ -126,9 +126,9 @@ class acf_field_flexible_link extends acf_field {
 		), true);
 
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Show title field', 'acf-flexible-link'),
+			'label'			=> __('Show link text field', 'acf-flexible-link'),
 			'instructions'	=> '',
-			'name'			=> 'show_title',
+			'name'			=> 'show_text',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
 		), true);
@@ -158,10 +158,10 @@ class acf_field_flexible_link extends acf_field {
 
 	}
 
-function html_title( $field ) {
-	if ( $field['show_title'] ) {
-		$label = '<div class="acf-field acf-field-text"><div class="acf-label"><label for="' . esc_attr($field["id"]) . '">Title</label></div>';
-		$input = '<div class="acf-input-wrap"><input type="text" name="' . esc_attr($field["name"]) . '[title]' . '" id="' . esc_attr($field["id"]) . '[title]" value="' . esc_attr($field["value"]["title"]) . '" /></div></div>';
+function html_text( $field ) {
+	if ( $field['show_text'] ) {
+		$label = '<div class="acf-field acf-field-text"><div class="acf-label"><label for="' . esc_attr($field["id"]) . '">Link Text</label></div>';
+		$input = '<div class="acf-input-wrap"><input type="text" name="' . esc_attr($field["name"]) . '[text]' . '" id="' . esc_attr($field["id"]) . '[text]" value="' . esc_attr($field["value"]["text"]) . '" /></div></div>';
 		return $label . $input;
 	}
 
@@ -281,7 +281,7 @@ function html_link_fields($field) {
 
 	function render_field( $field ) {
 
-		$field['value']['title'] = isset($field['value']['title']) ? $field['value']['title'] : $field['default_title'];
+		$field['value']['text'] = isset($field['value']['text']) ? $field['value']['text'] : $field['default_text'];
 		$field['value']['link_type'] = isset($field['value']['link_type']) ? $field['value']['link_type'] : $field['default_link_type'];
 		$field['value']['external_url'] = isset($field['value']['external_url']) ? $field['value']['external_url'] : null;
 		$field['value']['email'] = isset($field['value']['email']) ? $field['value']['email'] : null;
@@ -298,7 +298,7 @@ function html_link_fields($field) {
 		// 	print_r( $field );
 		// echo '</pre>';
 
-		echo $this->html_title($field);
+		echo $this->html_text($field);
 		echo $this->html_link_choices($field);
 		$this->html_link_fields($field);
 	}
@@ -555,10 +555,14 @@ function html_link_fields($field) {
 		}
 
 		$link_object = array(
-			'text' => $value['title'],
+			'text' => $value['text'],
 			'url' => $url,
 			'link_type' => $value['link_type']
 		);
+
+		if (!$field['show_text']) {
+			$link_object['text'] = false;
+		}
 
 		if ( $field['return_type'] === 1 ) {
 			return $link_object['url'];
