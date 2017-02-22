@@ -178,7 +178,7 @@ function html_link_choices( $field ) {
 
 	$options = '<div class="acf-field acf-field-radio"><ul class="acf-radio-list acf-vl">';
 	foreach( $field['allowed_link_types'] as $value) {
-		$label_class = '';
+		$label_class = 'link_type_picker';
 		$checked = '';
 
 		if( is_array($field['value']) && array_key_exists( 'link_type', $field['value'] ) ) {
@@ -187,7 +187,7 @@ function html_link_choices( $field ) {
 			$current_type = $field['link_type'];
 		}
 		if ( $current_type == $value) {
-			$label_class = 'selected';
+			$label_class .= ' selected';
 			$checked = 'checked';
 		}
 
@@ -201,9 +201,18 @@ function html_link_fields($field) {
 	$field_name = esc_attr( $field['name'] );
 	$field_raw_key = str_replace("field_", "", $field["key"]);
 	$types = array("post", "page");
+	$field_classes = array(
+		'url' => 'acf-hidden',
+		'post' => 'acf-hidden',
+		'email' => 'acf-hidden'
+	);
+
+	$field_classes[ $field['value']['link_type'] ] = '';
+
+
 	?>
 
-	<div class="acf-field acf-field-url">
+	<div class="acf-field acf-field-url <?php echo $field_classes['url'] ?>">
 	<div class="acf-label">
 		<label>External Link</label>
 	</div>
@@ -219,14 +228,15 @@ function html_link_fields($field) {
 		));
 	?>
 </div>
-	<div class="acf-label">
-		<label>Internal Link</label>
-	</div>
+
 	<?php
 		// str replace to get raw key (there seems to be no other way?)
 		$field_raw_key = str_replace('field_', '', $field['key']);
 	?>
-	<div class="acf-field acf-field-<?php echo $field_raw_key; ?> acf-field-post-object" data-name="<?php echo $field['_name']; ?>[post_id]" data-type="post_object" data-key="<?php echo $field['key']; ?>">
+	<div class="acf-field acf-field-<?php echo $field_raw_key; ?> acf-field-post-object <?php echo $field_classes['post'] ?>" data-name="<?php echo $field['_name']; ?>[post_id]" data-type="post_object" data-key="<?php echo $field['key']; ?>">
+		<div class="acf-label">
+			<label>Internal Link</label>
+		</div>
 		<div class="acf-input">
 		<?php
 			$types = array('post', 'page', 'attachment');
@@ -242,7 +252,7 @@ function html_link_fields($field) {
 		?>
 		</div>
 	</div>
-
+<div class="acf-field-email <?php echo $field_classes['email'] ?>">
 	<div class="acf-label">
 		<label>Email Address</label>
 	</div>
@@ -258,8 +268,10 @@ function html_link_fields($field) {
 			'append' => $field['append'],
 			'class' => '',
 			'placeholder' => ''
-		));
+		));?>
 
+		</div>
+		<?php
 	return $field;
 }
 
@@ -318,7 +330,6 @@ function html_link_fields($field) {
 	*  @return	n/a
 	*/
 
-	/*
 
 	function input_admin_enqueue_scripts() {
 
@@ -333,12 +344,11 @@ function html_link_fields($field) {
 
 
 		// register & include CSS
-		wp_register_style( 'acf-input-flexible_link', "{$url}assets/css/input.css", array('acf-input'), $version );
-		wp_enqueue_style('acf-input-flexible_link');
+		// wp_register_style( 'acf-input-flexible_link', "{$url}assets/css/input.css", array('acf-input'), $version );
+		// wp_enqueue_style('acf-input-flexible_link');
 
 	}
 
-	*/
 
 
 	/*
