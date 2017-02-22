@@ -16,7 +16,7 @@ http://www.advancedcustomfields.com/resources/tutorials/creating-a-new-field-typ
 * `/fields/flexible_link-v5.php`: Field class compatible with ACF version 5 
 * `/fields/flexible_link-v4.php`: Field class compatible with ACF version 4
 * `/lang`: folder for .pot, .po and .mo files
-* `acf-flexible_link.php`: Main plugin file that includes the correct field file based on the ACF version
+* `acf-flexible-link.php`: Main plugin file that includes the correct field file based on the ACF version
 * `readme.txt`: WordPress readme file to be used by the WordPress repository
 
 ### step 1.
@@ -62,7 +62,7 @@ This ACF field type is compatible with:
 
 ### Installation
 
-1. Copy the `acf-flexible_link` folder into your `wp-content/plugins` folder
+1. Copy the `acf-flexible-link` folder into your `wp-content/plugins` folder
 2. Activate the Flexible Link plugin via the plugins admin page
 3. Create a new field via ACF and select the Flexible Link type
 4. Please refer to the description for more info regarding the field type settings

@@ -45,7 +45,7 @@ class acf_plugin_flexible_link {
 		
 		// set text domain
 		// https://codex.wordpress.org/Function_Reference/load_plugin_textdomain
-		load_plugin_textdomain( 'acf-flexible_link', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
+		load_plugin_textdomain( 'acf-flexible-link', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
 		
 		
 		// include field
@@ -75,7 +75,7 @@ class acf_plugin_flexible_link {
 		
 		
 		// include
-		include_once('fields/acf-flexible_link-v' . $version . '.php');
+		include_once('fields/acf-flexible-link-v' . $version . '.php');
 		
 	}
 	
