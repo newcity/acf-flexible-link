@@ -574,6 +574,10 @@ function html_link_fields($field, $field_width_style ) {
 				$url = get_permalink($value['post_id']);
 				break;
 		}
+		
+		if ( ! array_key_exists( 'text', $value ) ) {
+			$value['text'] = '';
+		}
 
 		if ( array_key_exists( 'text', $value ) ) {
 			$link_text = $value['text'];
