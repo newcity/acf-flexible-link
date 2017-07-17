@@ -1,4 +1,8 @@
 {
     "name": "wonkeythemonkey/acf-flexible-link",
-    "version": "0.1.1"
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "v1.3.0",
+        "php": ">=5.4.0"
+    }
 }
