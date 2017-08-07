@@ -563,31 +563,43 @@ function html_link_fields($field, $field_width_style ) {
 
 		$url = '';
 
-		switch ($value['link_type']) {
-			case 'url':
-				$url = $value['external_url'];
-				break;
-			case 'email':
-				$url = 'mailto:' . $value['email'];
-				break;
-			case 'post':
+		if ( array_key_exists( 'link_type', $value ) ) {
+			switch ($value['link_type']) {
+				case 'url':
+					$url = $value['external_url'];
+					break;
+				case 'email':
+					$url = 'mailto:' . $value['email'];
+					break;
+				case 'post':
+					$url = get_permalink($value['post_id']);
+					break;
+			}
+			$link_type = $value['link_type'];
+		} else {
+			if ( array_key_exists( 'post_id', $value ) ) {
 				$url = get_permalink($value['post_id']);
-				break;
+				$link_type = 'post';
+			} elseif ( array_key_exists( 'email', $value ) ) {
+				$url = 'mailto:' . $value['email'];
+				$link_type = 'email';
+			} elseif ( array_key_exists( 'external_url', $value ) ) {
+				$url = $value['external_url'];
+				$link_type = 'url';
+			}
 		}
 		
 		if ( ! array_key_exists( 'text', $value ) ) {
 			$value['text'] = '';
+			$link_text = '';
+		} else {
+			$link_text = $value['text'];
 		}
 
-		if ( array_key_exists( 'text', $value ) ) {
-			$link_text = $value['text'];
-		} else {
-			$link_text = '';
-		}
 		$link_object = array(
 			'text' => $link_text,
 			'url' => $url,
-			'link_type' => $value['link_type']
+			'link_type' => $link_type
 		);
 
 		if (!$field['show_text']) {

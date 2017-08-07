@@ -4,7 +4,7 @@
 Plugin Name: Advanced Custom Fields: Flexible Link
 Plugin URI: https://github.com/wonkeythemonkey/acf-flexible-link
 Description: Choose from a variety of link types
-Version: 0.1.3
+Version: 0.1.4
 Author: Jesse Janowiak
 Author URI: https://insidenewcity.com
 License: GPLv2 or later
