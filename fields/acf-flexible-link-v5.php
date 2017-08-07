@@ -555,7 +555,7 @@ function html_link_fields($field, $field_width_style ) {
 	function format_value( $value, $post_id, $field ) {
 
 		// bail early if no value
-		if( empty($value) ) {
+		if( empty($value)  || 'string' === gettype( $value) ) {
 
 			return $value;
 
