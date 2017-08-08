@@ -572,12 +572,16 @@ function html_link_fields($field, $field_width_style ) {
 					$url = 'mailto:' . $value['email'];
 					break;
 				case 'post':
-					$url = get_permalink($value['post_id']);
+					if ( $value['post_id'] ) {
+						$url = get_permalink($value['post_id']);
+					} else {
+						$url = '';
+					}
 					break;
 			}
 			$link_type = $value['link_type'];
 		} else {
-			if ( array_key_exists( 'post_id', $value ) ) {
+			if ( array_key_exists( 'post_id', $value ) && $value['post_id'] ) {
 				$url = get_permalink($value['post_id']);
 				$link_type = 'post';
 			} elseif ( array_key_exists( 'email', $value ) ) {
@@ -586,6 +590,8 @@ function html_link_fields($field, $field_width_style ) {
 			} elseif ( array_key_exists( 'external_url', $value ) ) {
 				$url = $value['external_url'];
 				$link_type = 'url';
+			} else {
+				$link_type = 'undefined';
 			}
 		}
 		
