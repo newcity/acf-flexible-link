@@ -584,10 +584,10 @@ function html_link_fields($field, $field_width_style ) {
 			if ( array_key_exists( 'post_id', $value ) && $value['post_id'] ) {
 				$url = get_permalink($value['post_id']);
 				$link_type = 'post';
-			} elseif ( array_key_exists( 'email', $value ) ) {
+			} elseif ( array_key_exists( 'email', $value ) && $value['email'] ) {
 				$url = 'mailto:' . $value['email'];
 				$link_type = 'email';
-			} elseif ( array_key_exists( 'external_url', $value ) ) {
+			} elseif ( array_key_exists( 'external_url', $value ) && $value['external_url'] ) {
 				$url = $value['external_url'];
 				$link_type = 'url';
 			} else {
