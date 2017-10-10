@@ -59,7 +59,8 @@ class acf_field_flexible_link extends acf_field {
 			),
 			'show_text' => true,
 			'default_link_type' => 'post',
-			'default_text' => ''
+			'default_text' => '',
+			'allow_tabs' => false,
 		);
 
 
@@ -129,6 +130,14 @@ class acf_field_flexible_link extends acf_field {
 			'label'			=> __('Show link text field', 'acf-flexible-link'),
 			'instructions'	=> '',
 			'name'			=> 'show_text',
+			'type'			=> 'true_false',
+			'ui'			=> 1,
+		), true);
+
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Allow Links in New Tabs', 'acf-flexible-link'),
+			'instructions'	=> 'Enables a checkbox for opening links in new tabs or not',
+			'name'			=> 'allow_tabs',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
 		), true);
@@ -280,6 +289,39 @@ function html_link_fields($field, $field_width_style ) {
 	return $field;
 }
 
+function html_target( $field ) {
+	$field_name = esc_attr( $field['name'] );
+	$field_raw_key = str_replace("field_", "", $field["key"]);
+
+	if ( $field['allow_tabs'] ) {
+		?>
+		<div class="acf-field-email <?php echo $field_classes['email'] ?>">
+		<div class="acf-label">
+			<label>Open in New Tab?</label>
+		</div>
+		<?php
+
+		do_action('acf/render_field/type=true_false', array(
+			'name' => $field_name . '[new_tab]',
+			'id' => $field_name . '[new_tab]',
+			'value' => $field['value']['new_tab'],
+			'label' => __('Open in new tab', 'acf'),
+			'ui' => 0,
+			'ui_on_text' => 'Yes',
+			'ui_off_text' => 'No',
+			'message' => '',
+			'append' => $field['append'],
+			'class' => '',
+		) );
+		
+		echo '</div>';
+		return $field;
+	}
+	
+	return $field;
+	
+}
+
 
 	/*
 	*  render_field()
@@ -302,6 +344,8 @@ function html_link_fields($field, $field_width_style ) {
 		$field['value']['external_url'] = isset($field['value']['external_url']) ? $field['value']['external_url'] : null;
 		$field['value']['email'] = isset($field['value']['email']) ? $field['value']['email'] : null;
 		$field['value']['post_id'] = isset($field['value']['post_id']) ? $field['value']['post_id'] : null;
+		$field['value']['allow_tabs'] = isset($field['value']['allow_tabs']) ? $field['value']['allow_tabs'] : null;
+		$field['value']['new_tab'] = isset($field['value']['new_tab']) ? $field['value']['new_tab'] : 0;
 		$field['prepend'] = isset($field['prepend']) ? $field['prepend'] : '';
 		$field['append'] = isset($field['append']) ? $field['append'] : '';
 
@@ -324,6 +368,7 @@ function html_link_fields($field, $field_width_style ) {
 		}
 		$this->html_link_fields($field, $field_width_style);
 		echo '</div>';
+		$this->html_target($field);
 	}
 
 
@@ -429,10 +474,17 @@ function html_link_fields($field, $field_width_style ) {
 			$link_text = $value['text'];
 		}
 
+		if ( array_key_exists( 'new_tab', $value ) ) {
+			$new_tab = $value['new_tab'];
+		} else {
+			$new_tab = 0;
+		}
+
 		$link_object = array(
 			'text' => $link_text,
 			'url' => $url,
-			'link_type' => $link_type
+			'link_type' => $link_type,
+			'new_tab' => $new_tab,
 		);
 
 		if (!$field['show_text']) {
