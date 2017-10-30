@@ -395,12 +395,12 @@ function html_target( $field ) {
 
 
 		// register & include JS
-		wp_register_script( 'acf-input-flexible_link', "{$url}assets/js/input.js", array('acf-input'), $version );
+		wp_register_script( 'acf-input-flexible_link', "{$url}/js/input.js", array('acf-input'), $version );
 		wp_enqueue_script('acf-input-flexible_link');
 
 
 		// register & include CSS
-		// wp_register_style( 'acf-input-flexible_link', "{$url}assets/css/input.css", array('acf-input'), $version );
+		// wp_register_style( 'acf-input-flexible_link', "{$url}/css/input.css", array('acf-input'), $version );
 		// wp_enqueue_style('acf-input-flexible_link');
 
 	}
