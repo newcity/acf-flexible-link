@@ -214,9 +214,9 @@ function html_link_fields($field, $field_width_style ) {
 	$field_raw_key = str_replace("field_", "", $field["key"]);
 	$types = array("post", "page");
 	$field_classes = array(
-		'url' => 'acf-hidden',
-		'post' => 'acf-hidden',
-		'email' => 'acf-hidden'
+		'url' => 'hidden-by-conditional-logic',
+		'post' => 'hidden-by-conditional-logic',
+		'email' => 'hidden-by-conditional-logic'
 	);
 
 	$field_classes[ $field['value']['link_type'] ] = '';

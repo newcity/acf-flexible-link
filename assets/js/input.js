@@ -2,12 +2,13 @@
 
 
 	function initialize_field( $el ) {
-		console.log('Field initializing');
 		// define vars
 		var $radio = $el.find('.link_type_picker'),
 			$internal = $el.find('.acf-field-post-object'),
 			$external = $el.find('.acf-field-url'),
 			$email = $el.find('.acf-field-email');
+
+			helperRadioChange($radio, $internal, $external, $email);
 
 		// listen to radio button change
 		$radio.change(function() {
@@ -20,19 +21,15 @@
 	}
 
 	function helperRadioChange(_self, $internal, $external, $email) {
-		hiddenClass = 'acf-hidden';
-
-		console.log('radio button changed');
+		hiddenClass = 'hidden-by-conditional-logic';
 
 		radioValue = $(_self).find('input').val();
-
 
 		$internal.removeClass(hiddenClass);
 		$external.removeClass(hiddenClass);
 		$email.removeClass(hiddenClass);
 
 		// if ($(_self).is(':checked')) {
-		console.log(radioValue);
 			switch (radioValue) {
 				case 'post':
 					$external.addClass(hiddenClass);
