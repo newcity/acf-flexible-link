@@ -9,6 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Choose from a variety of link types
 
+
 == Description ==
 
 A single field object that allows user to choose from a variety of link types and returns an object with a URL and optional title.
