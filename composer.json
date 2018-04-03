@@ -1,5 +1,5 @@
 {
-    "name": "wonkeythemonkey/acf-flexible-link",
+    "name": "newcity/acf-flexible-link",
     "type": "wordpress-plugin",
     "require": {
         "composer/installers": "v1.3.0",
