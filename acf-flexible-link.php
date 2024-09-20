@@ -23,6 +23,8 @@ if( !class_exists('acf_plugin_flexible_link') ) :
 
 class acf_plugin_flexible_link {
 
+	protected $settings;
+
 	/*
 	*  __construct
 	*
